@@ -1,16 +1,180 @@
-<audio id="background-music" loop>
-    <source src="mae.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.
-</audio>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homenagem para Mamãe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        header {
+            background-color: #ff6961;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .carousel {
+            position: relative;
+            max-width: 50%;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+        }
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .content {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+        }
+        .progress-container {
+            margin: 30px auto;
+            max-width: 80%;
+            background-color: #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            height: 30px;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #ff6961;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .progress-bar span {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: fall 3s infinite linear;
+        }
+        @keyframes fall {
+            0% {
+                top: -10%;
+                left: calc(100% * var(--position));
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 110%;
+                left: calc(100% * var(--position));
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Homenagem para Mamãe ❤️</h1>
+    </header>
 
-<script>
-    // Garantir que o áudio comece no carregamento
-    const music = document.getElementById("background-music");
+    <div class="carousel">
+        <img src="foto1.jpg" class="active" alt="Foto 1">
+        <img src="foto2.jpg" alt="Foto 2">
+        <img src="foto3.jpg" alt="Foto 3">
+        <img src="foto4.jpg" alt="Foto 4">
+        <img src="foto5.jpg" alt="Foto 5">
+        <img src="foto6.jpg" alt="Foto 6">
+        <img src="foto7.jpg" alt="Foto 7">
+        <img src="foto8.jpg" alt="Foto 8">
+        <img src="foto9.jpg" alt="Foto 9">
+        <img src="foto10.jpg" alt="Foto 10">
+    </div>
 
-    // Forçar autoplay ao carregar a página
-    window.addEventListener("load", () => {
-        music.play().catch((error) => {
-            console.log("Autoplay bloqueado pelo navegador. Reproduza manualmente.");
-        });
-    });
-</script>
+    <div class="content">
+        <p>Mãe, você é nossa maior inspiração, força e carinho. Este site é apenas uma pequena demonstração do amor imenso que sentimos por você. Obrigado por ser o nosso porto seguro e nossa alegria diária. Te amamos mais do que palavras podem expressar!</p>
+    </div>
+
+    <button onclick="playMusic()">🎵 Tocar Música</button>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar">
+            <span>❤️</span>
+        </div>
+    </div>
+    <footer>
+        O TANTÃO QUE NOIS TE AMAMOS
+    </footer>
+
+    <div class="hearts"></div>
+
+    <audio id="background-music" loop>
+        <source src="mae.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        // Carrossel de fotos
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 3000);
+
+        // Barra de progresso
+        const progressBar = document.getElementById('progress-bar');
+        let progress = 0;
+        setInterval(() => {
+            if (progress < 100) {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+            }
+        }, 3000);
+
+        // Tocar música
+        function playMusic() {
+            const music = document.getElementById("background-music");
+            music.play();
+        }
+
+        // Corações caindo
+        const heartsContainer = document.querySelector('.hearts');
+        for (let i = 0; i < 100; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.setProperty('--position', Math.random());
+            heartsContainer.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
